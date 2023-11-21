@@ -23,7 +23,7 @@ def plot_clusters(points, cluster_assignments, number_of_clusters):
 
 import numpy as np
 
-def generate_large_dataset(num_centers=10, min_points=50, max_points=100):
+def generate_dataset(num_centers=10, min_points=50, max_points=100):
     """
     Generate a larger dataset with specified number of centers and points per center.
 

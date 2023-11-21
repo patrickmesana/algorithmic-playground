@@ -1,5 +1,5 @@
 from genetic_clustering import ClusteringSolution, Point2D, random_index, crossover, mutation
-from data import small_dataset_0, generate_large_dataset, plot_clusters
+from data import small_dataset_0, generate_dataset, plot_clusters
 from itertools import permutations
 
 def parallel_islands_execution_main(
@@ -134,7 +134,7 @@ if __name__ == "__main__":
         elif first_arg == "random":
             number_of_clusters = 5
 
-            large_dataset = generate_large_dataset(num_centers=number_of_clusters, min_points=2, max_points=10)
+            large_dataset = generate_dataset(num_centers=number_of_clusters, min_points=2, max_points=10)
 
             # print size of dataset
             print('dataset size', len(large_dataset))
