@@ -1,6 +1,9 @@
 from genetic_clustering import ClusteringSolution, Point2D, random_index, crossover, mutation
 from data import small_dataset_0, generate_dataset, plot_clusters
 from itertools import permutations
+import logging
+
+logger = logging.getLogger('ray')
 
 def parallel_islands_execution_main(
     dataset: list[tuple], number_of_solutions: int, generations: int, 
@@ -28,15 +31,12 @@ def parallel_islands_execution_main(
             self.other_islands = []
 
         def run_all_generations(self):
-            for _ in range(self.generations):
-                self.run_generation()
-
-        def run_generation(self):
-            for _ in range(len(self.population)):
+            for i in range(self.generations):
+                logger.info(f"Island(id={self.island_id}), Generation={i}/{self.generations}")
                 good_solution, bad_solution = self.select_solutions()
                 child_solution = self.genetic_process(good_solution, bad_solution)
                 self.update_population(child_solution)
-            self.perform_migration()
+                self.perform_migration()
 
         def genetic_process(self, good_solution, bad_solution):
             child_solution = crossover(
@@ -72,7 +72,7 @@ def parallel_islands_execution_main(
         def receive_solution(self, incoming_solution):
             # This method can be called remotely by another island to send a solution
             # Integrate the incoming solution into your population
-            self.population.append(incoming_solution)  # Example integration method
+            self.population.append(incoming_solution)
             self.population.sort(key=lambda s: s.quality, reverse=True)
 
 
@@ -86,6 +86,7 @@ def parallel_islands_execution_main(
 
         
     ray.init()
+    
 
     points = [Point2D(x, y) for x, y in dataset]
     clusters_permutations: list[tuple] = list(permutations(list(range(number_of_clusters))))
@@ -120,7 +121,7 @@ if __name__ == "__main__":
         # Perform different actions based on the argument
         if first_arg == "test":
             # Parameters
-            number_of_solutions = 50
+            number_of_solutions = 100
             generations = 80
             mutation_rate = 5
             number_of_clusters = 4
@@ -138,7 +139,6 @@ if __name__ == "__main__":
 
             # print size of dataset
             print('dataset size', len(large_dataset))
-
 
             number_of_solutions = 50
             generations = 200

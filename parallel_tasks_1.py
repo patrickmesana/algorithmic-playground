@@ -110,7 +110,7 @@ if __name__ == "__main__":
         elif first_arg == "random":
             number_of_clusters = 5
 
-            large_dataset = generate_dataset(num_centers=number_of_clusters, min_points=2, max_points=10)
+            large_dataset = generate_dataset(num_centers=number_of_clusters, min_points=2, max_points=100)
 
             # print size of dataset
             print('dataset size', len(large_dataset))

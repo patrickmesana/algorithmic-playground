@@ -111,11 +111,11 @@ if __name__ == "__main__":
             generations = 80
             mutation_rate = 5
             number_of_clusters = 4
-            number_of_tasks = 8
+            number_of_actors = 8
 
             
             points, solution, number_of_clusters = parallel_actors_execution_main(
-                small_dataset_0, number_of_solutions, generations * number_of_tasks, mutation_rate, number_of_clusters, number_of_tasks
+                small_dataset_0, number_of_solutions, generations * number_of_actors, mutation_rate, number_of_clusters, number_of_actors
             )
             plot_clusters(points, solution.assignments, number_of_clusters)
         elif first_arg == "random":
@@ -131,10 +131,10 @@ if __name__ == "__main__":
             generations = 200
             mutation_rate = 5
 
-            number_of_tasks = 8
+            number_of_actors = 8
 
             points, solution, number_of_clusters = parallel_actors_execution_main(
-                large_dataset, number_of_solutions, generations * number_of_tasks, mutation_rate, number_of_clusters, number_of_tasks
+                large_dataset, number_of_solutions, generations * number_of_actors, mutation_rate, number_of_clusters, number_of_actors
             )
             plot_clusters(points, solution.assignments, number_of_clusters)
         else:

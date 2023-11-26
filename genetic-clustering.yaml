@@ -1,0 +1,12 @@
+cluster_name: genetic-clustering
+
+# Cloud-provider specific configuration.
+provider:
+    type: aws
+    region: us-east-2
+
+# Ray-specific configuration.
+ray:
+    # Specify the minimum and maximum number of worker nodes.
+    min_workers: 2   # Set this to the minimum number of worker nodes you want.
+    max_workers: 5   # Set this to the maximum number of worker nodes you want.

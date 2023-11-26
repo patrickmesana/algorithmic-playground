@@ -1,6 +1,7 @@
 from genetic_clustering import ClusteringSolution, Point2D, random_index, crossover, mutation
 from data import small_dataset_0, generate_dataset, plot_clusters
 from itertools import permutations
+import re
 
 def parallel_tasks_2_execution_main(
     dataset: list[tuple], number_of_solutions: int, generations: int, 
@@ -91,7 +92,7 @@ if __name__ == "__main__":
         if first_arg == "test":
             # Parameters
             number_of_solutions = 50
-            generations = 80
+            generations = 320
             mutation_rate = 5
             number_of_clusters = 4
             number_of_tasks = 8
@@ -101,10 +102,12 @@ if __name__ == "__main__":
                 small_dataset_0, number_of_solutions, generations, mutation_rate, number_of_clusters, number_of_tasks
             )
             plot_clusters(points, solution.assignments, number_of_clusters)
-        elif first_arg == "random":
+        elif re.match(r"random [0-9]+", first_arg):
+            # Extract the max_points value from the argument
+            max_points = int(first_arg.split()[1])
             number_of_clusters = 5
 
-            large_dataset = generate_dataset(num_centers=number_of_clusters, min_points=2, max_points=10)
+            large_dataset = generate_dataset(num_centers=number_of_clusters, min_points=2, max_points=max_points)
 
             # print size of dataset
             print('dataset size', len(large_dataset))
@@ -120,6 +123,7 @@ if __name__ == "__main__":
                 large_dataset, number_of_solutions, generations, mutation_rate, number_of_clusters, number_of_tasks
             )
             plot_clusters(points, solution.assignments, number_of_clusters)
+        
         else:
             print("Invalid argument")
     else:
